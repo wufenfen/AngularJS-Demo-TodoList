@@ -27,13 +27,14 @@ angular.module("app",[])
 		}
 
 		$scope.archive = function(){
-			var stillTodo = [];
-			$scope.todos.forEach(function(ele,index){
+			var oldLists = $scope.todos;
+			$scope.todos = [];
+			$scope.todos.remaining = oldLists.remaining;  //保留对象的计数函数 
+			oldLists.forEach(function(ele,index){
 				if(!ele.done){
-					stillTodo.push(ele); 
+					$scope.todos.push(ele); 
 				}
-			});
-			$scope.todos = stillTodo;
+			}); 
 		}
 
 	}]);

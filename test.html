@@ -15,7 +15,7 @@
 
 <body ng-controller="TestCtrl">
     <h1> Todo Lists</h1>
-    <p> {{todos.remaining() || 0}} of {{todos.length}} remaining  <button ng-click="archive();"> archive</button> 
+    <p> {{todos.remaining()}} of {{todos.length}} remaining  <button ng-click="archive();"> archive</button> 
     </p>
     <ul>
         <li ng-repeat="item in todos track by $index" class="done-{{item.done}}">
