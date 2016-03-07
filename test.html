@@ -1,0 +1,28 @@
+<!doctype html>
+<html ng-app='app'>
+
+<head>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="test.js"></script>
+    <style>
+    .done-true {
+        text-decoration: line-through;
+        color: grey;
+    }
+    </style>
+</head>
+
+<body ng-controller="TestCtrl">
+    <h1> Todo Lists</h1>
+    <p> {{todos.remaining() || 0}} of {{todos.length}} remaining  <button ng-click="archive();"> archive</button> 
+    </p>
+    <ul>
+        <li ng-repeat="item in todos track by $index" class="done-{{item.done}}">
+            <input type="checkbox" ng-model="item.done" > {{item.content}} </li>
+    </ul>
+    <input type="text" ng-model="nextTodo">
+    <input type="button" ng-click="addToList();" value="添加">
+</body>
+
+</html>
