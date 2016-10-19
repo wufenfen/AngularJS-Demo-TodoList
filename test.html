@@ -4,25 +4,56 @@
 <head>
     <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="ui-bootstrap.js"></script>
+    <script src="ui-bootstrap-tpls.js"></script>
     <script src="test.js"></script>
+    <link rel="stylesheet" href="ui-bootstrap-csp.css">
     <style>
     .done-true {
         text-decoration: line-through;
         color: grey;
+    }
+    
+    div[contentEditable] {
+        background-color: grey;
+        color: white;
     }
     </style>
 </head>
 
 <body ng-controller="TestCtrl">
     <h1> Todo Lists</h1>
-    <p> {{todos.remaining()}} of {{todos.length}} remaining  <button ng-click="archive();"> archive</button> 
+    <p> {{todos.remaining()}} of {{todos.length}} remaining
+        <button ng-click="archive();"> archive</button>
     </p>
     <ul>
         <li ng-repeat="item in todos track by $index" class="done-{{item.done}}">
-            <input type="checkbox" ng-model="item.done" > {{item.content}} </li>
+            <input type="checkbox" ng-model="item.done"> {{item.content}} 
+        </li>
     </ul>
     <input type="text" ng-model="nextTodo">
     <input type="button" ng-click="addToList();" value="添加">
+    <h1> editable Demo </h1>
+    <div contentEditable="true" able-edit ng-model="content"> hhhh </div>
+    <div> {{content}} </div>
+    <h1> simple directive </h1>
+    <author author-info='author'> ~~~~~ This is included parts ~~~~ </author>
+    <author author-info='author1'> </author>
+    <h1> tabs directive Demo </h1>
+    <my-tabs>
+        <my-pane title="Hello">
+            <p>Lorem ipsum dolor sit amet</p>
+        </my-pane>
+        <my-pane title="World"> 
+            <p> hello this is my world, planet</p>
+        </my-pane>
+         <my-pane title="cat"> 
+            <p> I am a cat, ahaha </p>
+        </my-pane>
+         <my-pane title="dog"> 
+            <p> That is my adorable dog</p>
+        </my-pane>
+    </my-tabs>
 </body>
 
 </html>
