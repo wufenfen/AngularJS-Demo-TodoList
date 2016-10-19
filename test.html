@@ -3,12 +3,9 @@
 
 <head>
     <meta charset="utf-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-    <script src="ui-bootstrap.js"></script>
-    <script src="ui-bootstrap-tpls.js"></script>
-    <script src="test.js"></script>
-    <link rel="stylesheet" href="ui-bootstrap-csp.css">
-    <style>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script> 
+    <script src="test.js"></script> 
+    <style> 
     .done-true {
         text-decoration: line-through;
         color: grey;
@@ -18,10 +15,48 @@
         background-color: grey;
         color: white;
     }
+
+    *{
+        line-height: 2em;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    .navLevel1 {
+        background-color: #6db3b9; 
+        padding-left: 2em; 
+        cursor: pointer;
+    }
+
+    .navLevel2 {
+        list-style-type: none; 
+        padding-left: 3em;  
+        cursor: pointer;
+    }
+
+    .navLevel2:hover {
+        background-color: #b6e0f3;  
+    }
     </style>
 </head>
 
 <body ng-controller="TestCtrl">
+    <h1> nav directive Demo </h1>
+    <nav-tree>  
+       <nav-group title='Home'>  
+           <nav-item nav-route='item1'> item1 </nav-item>   
+           <nav-item nav-route='item2'> item2 </nav-item>   
+           <nav-item nav-route='item3'> item3 </nav-item> 
+       </nav-group>
+       <nav-group title='Product'>  
+           <nav-item> hello1 </nav-item>   
+           <nav-item> hello2 </nav-item>   
+           <nav-item> hello3 </nav-item> 
+       </nav-group>
+    </nav-tree> 
     <h1> Todo Lists</h1>
     <p> {{todos.remaining()}} of {{todos.length}} remaining
         <button ng-click="archive();"> archive</button>
@@ -53,7 +88,7 @@
          <my-pane title="dog"> 
             <p> That is my adorable dog</p>
         </my-pane>
-    </my-tabs>
+    </my-tabs> 
 </body>
 
 </html>

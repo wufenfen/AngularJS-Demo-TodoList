@@ -1,4 +1,4 @@
-angular.module("app",["ui.bootstrap"])
+angular.module("app",[])
 	.controller("TestCtrl",["$scope", function($scope){ 
 		$scope.todos = [{
 			content:'learn angular',
@@ -124,6 +124,71 @@ angular.module("app",["ui.bootstrap"])
 			link: function(scope, ele, atrrs, ctrl){ 
 				ctrl.addPane(scope);
 			}
+		}
+	})
+	.directive('navTree', function(){
+		return { 
+			restrict: "AE", 
+			scope:{},
+			replace:true,
+			transclude:'true',
+			template: '<div class=""><div ng-transclude></div></div>',
+			controller: ['$scope', function($scope){
+				var navTree = $scope.navTree = [];
+				this.addNav = function(navGroup){
+					navTree.push(navGroup);
+					if(navTree.length === 1 ){
+						navTree[0].isShow = true;
+					}
+				}
+			}]
+		}
+	})
+	.directive('navGroup', function(){
+		return { 
+			require:'^^navTree',
+			restrict: "AE", 
+			replace:true,
+			scope:{
+				title:'@'
+			},
+			transclude:'true',
+			template: '<div> <div ng-click="toggle()" class="navLevel1"> {{title}} </div> <ul ng-show="isShow"><div ng-transclude></div></ul></div>',
+			controller: ['$scope', function($scope){
+				var navList = $scope.navList = []; 
+				this.addNavItem = function(navItem){
+					navList.push(navItem);
+				}
+				$scope.toggle = function(){
+					if( $scope.isShow ){
+						$scope.isShow = false;
+					}
+					else{
+						$scope.isShow = true;
+					}
+				}
+			}],
+			link: function(scope, ele, atrrs, navTreeCtrl){ 
+				navTreeCtrl.addNav(scope);
+			} 
+		}
+	})
+	.directive('navItem', function(){
+		return { 
+			require:'^^navGroup',
+			replace:true,
+			scope:{
+				navRoute: '@'
+			},
+			restrict: "AE",  
+			transclude:'true',
+			template: '<li class="navLevel2"><div ng-transclude></div></li>',
+			link: function(scope, ele, atrrs, navGroupCtrl){ 
+				navGroupCtrl.addNavItem(scope);
+				ele.on('click', function(){
+					window.location.hash = atrrs.navRoute;
+				})
+			}  
 		}
 	})
 
