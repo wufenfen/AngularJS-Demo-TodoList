@@ -191,6 +191,67 @@ angular.module("app",[])
 			}  
 		}
 	})
+	.directive('myPager', function(){
+		return { 
+			restrict:'E',
+			replace:true,
+			scope:{
+				totalPage: "=",
+				currentPage:"=",
+				pageSize:"=",
+				pageChanged:"&"
+			}, 
+			transclude:'true',
+			template: '<ul class="pagination"> \
+		        <li ng-class="{disabled: noPrevious()}" ng-click="selectPrevious()" ng-disabled="noPrevious()"><a href="#{{currentPage-1}}">&laquo;</a></li> \
+		        <li ng-repeat="page in pages" ng-click="selectPage(page)"><a href="#{{page}}"> {{page}} </a></li> \
+		        <li ng-class="{disabled: noNext()}" ng-click="selectNext()" ng-disabled="noNext()"><a href="#{{currentPage+1}}">&raquo;</a></li>\
+		   </ul>',
+			link: function(scope, ele, atrrs, ctrl){  
+				scope.pages = [];
+				for(var i=1; i<=scope.totalPage; i++){
+					scope.pages.push(i);
+				}
+
+				scope.isActive = function(page){
+					return scope.tempPage === page;
+				}
+
+				scope.$watch('currentPage', function(value){ 
+					scope.selectPage(value); 
+				})
+
+				scope.selectPage = function(page){
+					if(!scope.isActive(page)){
+						scope.tempPage = page;
+						//scope.pageChanged(page);
+						console.log(page);
+					}
+				}
+
+				scope.selectPrevious = function(){
+					if(!scope.noPrevious()){
+						scope.selectPage(scope.tempPage-1);
+					}
+				}
+
+				scope.noPrevious = function(){
+					return scope.tempPage -1 < 1 ;
+				}
+
+				scope.selectNext = function(){
+					if(!scope.noNext()){
+						scope.selectPage(scope.tempPage+1);
+					}
+				}
+
+				scope.noNext = function(){
+					return scope.tempPage +1 > scope.totalPage;
+				}
+			}  
+		}
+	})
+
 
 
 
