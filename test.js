@@ -47,6 +47,12 @@ angular.module("app",[])
 			}); 
 		}
 
+		$scope.page = 4;
+
+		$scope.pageChanged = function(page){ 
+	        console.log('I am selecting page ' + page);
+	    }
+
 	}])
 	.directive("ableEdit",function(){
 		return {
@@ -191,7 +197,7 @@ angular.module("app",[])
 			}  
 		}
 	})
-	.directive('myPager', function(){
+	.directive('myPager', ['$timeout', function($timeout){
 		return { 
 			restrict:'E',
 			replace:true,
@@ -202,55 +208,104 @@ angular.module("app",[])
 				pageChanged:"&"
 			}, 
 			transclude:'true',
-			template: '<ul class="pagination"> \
-		        <li ng-class="{disabled: noPrevious()}" ng-click="selectPrevious()" ng-disabled="noPrevious()"><a href="#{{currentPage-1}}">&laquo;</a></li> \
-		        <li ng-repeat="page in pages" ng-click="selectPage(page)"><a href="#{{page}}"> {{page}} </a></li> \
-		        <li ng-class="{disabled: noNext()}" ng-click="selectNext()" ng-disabled="noNext()"><a href="#{{currentPage+1}}">&raquo;</a></li>\
+			template: '<ul class="pagination" id="myPager"> \
+		        <li ng-click="selectFirst()"><a href="#1"> First </a></li> \
+		        <li ng-class="{disabled: noPrevious()}" ng-click="selectPrevious()" ng-disabled="noPrevious()"><a href="javascript:void(0)">&laquo;</a></li> \
+		        <li ng-show="showPreviousBtn" ng-click="turnPrevious()"><a href="javascript:void(0)"> ... </a></li> \
+		        <li ng-repeat="page in pages" ng-click="selectPage(page)" id="myPager_{{page}}"><a href="#{{page}}"> {{page+1}} </a></li> \
+		        <li ng-show="showNextBtn" ng-click="turnNext()"><a href="javascript:void(0)"> ... </a></li> \
+		        <li ng-class="{disabled: noNext()}" ng-click="selectNext()" ng-disabled="noNext()"><a href="javascript:void(0)">&raquo;</a></li>\
+		        <li ng-click="selectLast()"><a href="#{{totalPage}}"> Last </a></li>\
 		   </ul>',
-			link: function(scope, ele, atrrs, ctrl){  
-				scope.pages = [];
-				for(var i=1; i<=scope.totalPage; i++){
-					scope.pages.push(i);
+			link: function(scope, ele, atrrs, ctrl){
+				scope.showPreviousBtn = true;
+				scope.showNextBtn = false;
+				function showPages(page){
+					var start = Math.floor(page/scope.pageSize)*scope.pageSize;
+					var end = Math.min(scope.totalPage-1, start+scope.pageSize-1);
+					 
+					scope.showPreviousBtn = (start==0?false: true) ; 
+					scope.showNextBtn = (end !== scope.totalPage-1?  true:false);  
+					scope.pages = []; 
+					for(var i=start; i<=end; i++){
+						scope.pages.push(i);
+					} 
+					$timeout(addClass, 200);
 				}
 
+				function initPage(){ 
+					showPages(scope.currentPage);
+					scope.selectPage(scope.currentPage);
+				}
+
+				function addClass(){
+					$("#myPager li").removeClass('active');
+					var ele = "#myPager_" + scope.currentPage;
+					$(ele).addClass('active'); 
+				}
+
+				//判断点击页面是否就是当前页
 				scope.isActive = function(page){
-					return scope.tempPage === page;
-				}
+					return scope.currentPage === page;
+				} 
 
-				scope.$watch('currentPage', function(value){ 
-					scope.selectPage(value); 
-				})
-
+				//翻页
 				scope.selectPage = function(page){
 					if(!scope.isActive(page)){
-						scope.tempPage = page;
-						//scope.pageChanged(page);
-						console.log(page);
-					}
+						scope.currentPage = page;
+						scope.pageChanged({page:page}); 
+						showPages(page);
+					}  
 				}
 
+				scope.$watch('currentPage', function(value) { 
+					scope.selectPage(value);
+                });
+
+				//是否没有前一页
+				scope.noPrevious = function(){
+					return scope.currentPage -1 < 0 ;
+				}
+				//选择前一页
 				scope.selectPrevious = function(){
 					if(!scope.noPrevious()){
-						scope.selectPage(scope.tempPage-1);
+						scope.selectPage(scope.currentPage-1);
 					}
 				}
-
-				scope.noPrevious = function(){
-					return scope.tempPage -1 < 1 ;
+				//是否没有后一页了
+				scope.noNext = function(){
+					return scope.currentPage +1 > scope.totalPage -1;
 				}
-
+				//选择后一页
 				scope.selectNext = function(){
 					if(!scope.noNext()){
-						scope.selectPage(scope.tempPage+1);
+						scope.selectPage(scope.currentPage+1);
 					}
 				}
-
-				scope.noNext = function(){
-					return scope.tempPage +1 > scope.totalPage;
+				//选择首页
+				scope.selectFirst = function(){ 
+					scope.selectPage(0); 
 				}
+				//选择尾页
+				scope.selectLast = function(){ 
+					scope.selectPage(scope.totalPage-1); 
+				} 
+				//翻到前一组页码
+				scope.turnPrevious = function(){ 
+					var page = Math.floor(scope.currentPage/scope.pageSize)*scope.pageSize - 1;
+					scope.selectPage(page);
+
+				}  
+				//翻到后一组页码
+				scope.turnNext = function(){ 
+					var page = Math.floor(scope.currentPage/scope.pageSize)*scope.pageSize + scope.pageSize;
+					scope.selectPage(page); 
+				}
+
+				initPage();
 			}  
 		}
-	})
+	}])
 
 
 

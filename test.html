@@ -1,22 +1,20 @@
-<!doctype html>
+<!Doctype html>
 <html ng-app='app'>
 
 <head>
     <meta charset="utf-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script> 
-    <script src="test.js"></script> 
-    <!-- ÐÂ Bootstrap ºËÐÄ CSS ÎÄ¼þ -->
+    <title> angularJs æŒ‡ä»¤ç»ƒä¹  </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="test.js"></script>
+    <!-- æ–° Bootstrap æ ¸å¿ƒ CSS æ–‡ä»¶ -->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-
-    <!-- ¿ÉÑ¡µÄBootstrapÖ÷ÌâÎÄ¼þ£¨Ò»°ã²»ÓÃÒýÈë£© -->
+    <!-- å¯é€‰çš„Bootstrapä¸»é¢˜æ–‡ä»¶ï¼ˆä¸€èˆ¬ä¸ç”¨å¼•å…¥ï¼‰ -->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
-
-    <!-- jQueryÎÄ¼þ¡£Îñ±ØÔÚbootstrap.min.js Ö®Ç°ÒýÈë -->
+    <!-- jQueryæ–‡ä»¶ã€‚åŠ¡å¿…åœ¨bootstrap.min.js ä¹‹å‰å¼•å…¥ -->
     <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
-
-    <!-- ×îÐÂµÄ Bootstrap ºËÐÄ JavaScript ÎÄ¼þ -->
+    <!-- æœ€æ–°çš„ Bootstrap æ ¸å¿ƒ JavaScript æ–‡ä»¶ -->
     <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <style> 
+    <style>
     .done-true {
         text-decoration: line-through;
         color: grey;
@@ -26,59 +24,59 @@
         background-color: grey;
         color: white;
     }
-
-    *{
+    
+    * {
         line-height: 2em;
     }
-
+    
     ul {
         margin: 0;
         padding: 0;
     }
-
+    
     .navLevel1 {
-        background-color: #6db3b9; 
-        padding-left: 2em; 
+        background-color: #6db3b9;
+        padding-left: 2em;
         cursor: pointer;
     }
-
+    
     .navLevel2 {
-        list-style-type: none; 
-        padding-left: 3em;  
+        list-style-type: none;
+        padding-left: 3em;
         cursor: pointer;
     }
-
+    
     .navLevel2:hover {
-        background-color: #b6e0f3;  
+        background-color: #b6e0f3;
     }
     </style>
 </head>
 
 <body ng-controller="TestCtrl">
     <h1> nav directive Demo </h1>
-    <nav-tree>  
-       <nav-group title='Home'>  
-           <nav-item nav-route='item1'> item1 </nav-item>   
-           <nav-item nav-route='item2'> item2 </nav-item>   
-           <nav-item nav-route='item3'> item3 </nav-item> 
-       </nav-group>
-       <nav-group title='Product'>  
-           <nav-item nav-route='hello1'> hello1 </nav-item>   
-           <nav-item nav-route='hello2'> hello2 </nav-item>   
-           <nav-item nav-route='hello3'> hello3 </nav-item> 
-       </nav-group>
-    </nav-tree> 
+    <nav-tree>
+        <nav-group title='Home'>
+            <nav-item nav-route='item1'> item1 </nav-item>
+            <nav-item nav-route='item2'> item2 </nav-item>
+            <nav-item nav-route='item3'> item3 </nav-item>
+        </nav-group>
+        <nav-group title='Product'>
+            <nav-item nav-route='hello1'> hello1 </nav-item>
+            <nav-item nav-route='hello2'> hello2 </nav-item>
+            <nav-item nav-route='hello3'> hello3 </nav-item>
+        </nav-group>
+    </nav-tree>
     <h1> Todo Lists</h1>
     <p> {{todos.remaining()}} of {{todos.length}} remaining
         <button ng-click="archive();"> archive</button>
     </p>
     <ul>
         <li ng-repeat="item in todos track by $index" class="done-{{item.done}}">
-            <input type="checkbox" ng-model="item.done"> {{item.content}} 
+            <input type="checkbox" ng-model="item.done"> {{item.content}}
         </li>
     </ul>
     <input type="text" ng-model="nextTodo">
-    <input type="button" ng-click="addToList();" value="Ìí¼Ó">
+    <button ng-click="addToList();"> æ·»åŠ  </button>
     <h1> editable Demo </h1>
     <div contentEditable="true" able-edit ng-model="content"> hhhh </div>
     <div> {{content}} </div>
@@ -90,22 +88,17 @@
         <my-pane title="Hello">
             <p>Lorem ipsum dolor sit amet</p>
         </my-pane>
-        <my-pane title="World"> 
+        <my-pane title="World">
             <p> hello this is my world, planet</p>
         </my-pane>
-         <my-pane title="cat"> 
+        <my-pane title="cat">
             <p> I am a cat, ahaha </p>
         </my-pane>
-         <my-pane title="dog"> 
+        <my-pane title="dog">
             <p> That is my adorable dog</p>
         </my-pane>
-    </my-tabs>  
-    <my-pager total-page="10" current-page="4" page-size="5" page-changed="pageChanged(page)"> </my-pager>     
+    </my-tabs>
+    <my-pager total-page="13" current-page="page" page-size="5" page-changed="pageChanged(page)"> </my-pager>
 </body>
 
-<script>
-    function pageChanged(page){
-        console.log('I am selecting page ' + page);
-    }
-</script>
 </html>
