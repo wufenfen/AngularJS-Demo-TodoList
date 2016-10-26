@@ -1,0 +1,35 @@
+{
+  "name": "nodolist",
+  "version": "1.0.0",
+  "description": " some exercise for angularJs directives",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "run-sequence": "^1.2.2"
+  },
+  "devDependencies": {
+    "express": "^4.14.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-jshint": "^2.0.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.2",
+    "gulp-uglify": "^2.0.0",
+    "jshint": "^2.9.4",
+    "run-sequence": "^1.2.2",
+    "shark-automation": "^1.2.3",
+    "yargs": "^6.3.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wufenfen/AngularJS-Demo-TodoList.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wufenfen/AngularJS-Demo-TodoList/issues"
+  },
+  "homepage": "https://github.com/wufenfen/AngularJS-Demo-TodoList#readme"
+}

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title> angularJs 指令练习 </title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-    <script src="test.js"></script>
+    <script src="js/test.js"></script>
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <!-- 可选的Bootstrap主题文件（一般不用引入） -->
@@ -14,49 +14,14 @@
     <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <style>
-    .done-true {
-        text-decoration: line-through;
-        color: grey;
-    }
-    
-    div[contentEditable] {
-        background-color: grey;
-        color: white;
-    }
-    
-    * {
-        line-height: 2em;
-    }
-    
-    ul {
-        margin: 0;
-        padding: 0;
-    }
-    
-    .navLevel1 {
-        background-color: #6db3b9;
-        padding-left: 2em;
-        cursor: pointer;
-    }
-    
-    .navLevel2 {
-        list-style-type: none;
-        padding-left: 3em;
-        cursor: pointer;
-    }
-    
-    .navLevel2:hover {
-        background-color: #b6e0f3;
-    }
-    </style>
+    <link rel="stylesheet" href="style/css/main.css">
 </head>
 
-<body ng-controller="TestCtrl">
+<body ng-controller="TestCtrl" style="padding: 20px 40px;">
     <h1> nav directive Demo </h1>
     <nav-tree>
         <nav-group title='Home'>
-            <nav-item nav-route='item1'> item1 </nav-item>
+            <nav-item nav-route='item1'> item11111 </nav-item>
             <nav-item nav-route='item2'> item2 </nav-item>
             <nav-item nav-route='item3'> item3 </nav-item>
         </nav-group>
@@ -99,6 +64,8 @@
         </my-pane>
     </my-tabs>
     <my-pager total-page="13" current-page="page" page-size="5" page-changed="pageChanged(page)"> </my-pager>
+
+    <div> {{data}} </div>
 </body>
 
 </html>

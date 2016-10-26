@@ -1,0 +1,27 @@
+.done-true {
+  text-decoration: line-through;
+  color: grey; }
+
+div[contentEditable] {
+  background-color: grey;
+  color: white; }
+
+* {
+  line-height: 2em; }
+
+ul {
+  margin: 0;
+  padding: 0; }
+
+.navLevel1 {
+  background-color: #6db311;
+  padding-left: 2em;
+  cursor: pointer; }
+
+.navLevel2 {
+  list-style-type: none;
+  padding-left: 3em;
+  cursor: pointer; }
+
+.navLevel2:hover {
+  background-color: #b6e0f3; }
